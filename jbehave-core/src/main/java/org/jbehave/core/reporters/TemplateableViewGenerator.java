@@ -346,10 +346,14 @@ public class TemplateableViewGenerator implements ViewGenerator {
         public Properties asProperties(String format) {
             Properties p = new Properties();
             File stats = filesByFormat.get(format);
+
             try {
                 p.load(new FileInputStream(stats));
+                FileInputStream fileInputStream = new FileInputStream(stats);
+                p.load(fileInputStream);
+                fileInputStream.close();
             } catch (Exception e) {
-                // return empty map
+                e.printStackTrace();
             }
             return p;
         }
